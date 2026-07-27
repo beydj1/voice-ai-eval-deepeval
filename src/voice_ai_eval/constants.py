@@ -7,4 +7,5 @@ SUPPORTED_JUDGE_PROVIDERS = {
     "mock",
     "ollama",
     "openai",
+    "openai-structured",
 }

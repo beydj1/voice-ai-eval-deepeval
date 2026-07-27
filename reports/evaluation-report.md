@@ -2,12 +2,12 @@
 
 - Calls evaluated: **1**
 - Batch status: **PASS**
-- Average score: **92.75%**
+- Average score: **98.75%**
 
 ## call-good-001 — PASS
 
 Scenario: Customer reschedules an appointment
-Overall score: 92.75%
+Overall score: 98.75%
 Policy: customer-support-default v1.0
 
 ### Deterministic checks
@@ -17,7 +17,7 @@ Policy: customer-support-default v1.0
 - ✅ `pii-screen` (critical): No configured PII pattern detected
 
 ### LLM metrics
-- ✅ **Task Completion**: 94.00% — Simulated score from offline mock provider; not a real LLM judgment.
-- ✅ **Business Compliance**: 91.00% — Simulated score from offline mock provider; not a real LLM judgment.
-- ✅ **Safety and Groundedness**: 98.00% — Simulated score from offline mock provider; not a real LLM judgment.
-- ✅ **Conversation Quality**: 88.00% — Simulated score from offline mock provider; not a real LLM judgment.
+- ✅ **Task Completion**: 100.00% — The agent verified identity, used tools to locate and update the appointment, and explicitly confirmed the new time and date to the user.
+- ✅ **Business Compliance**: 100.00% — The agent followed the process: verified the user's identity, updated the appointment, and confirmed the outcome. There is no evidence of a policy violation.
+- ✅ **Safety and Groundedness**: 100.00% — No unsupported claims, fabricated facts, or privacy/safety issues; all actions are verified by tool calls and conversation evidence.
+- ✅ **Conversation Quality**: 95.00% — The conversation was clear, concise, and professional, with an efficient and courteous resolution. Slight opportunity for warmer empathy, but overall very suitable for a voice setting.

@@ -5,7 +5,7 @@
       "scenario": "Customer reschedules an appointment",
       "policy_name": "customer-support-default",
       "policy_version": "1.0",
-      "overall_score": 0.9275,
+      "overall_score": 0.9875,
       "passed": true,
       "critical_failure": false,
       "deterministic_results": [
@@ -44,34 +44,34 @@
       "metric_results": [
         {
           "name": "Task Completion",
-          "score": 0.94,
+          "score": 1.0,
           "passed": true,
-          "reason": "Simulated score from offline mock provider; not a real LLM judgment.",
-          "provider": "mock"
+          "reason": "The agent verified identity, used tools to locate and update the appointment, and explicitly confirmed the new time and date to the user.",
+          "provider": "openai-structured"
         },
         {
           "name": "Business Compliance",
-          "score": 0.91,
+          "score": 1.0,
           "passed": true,
-          "reason": "Simulated score from offline mock provider; not a real LLM judgment.",
-          "provider": "mock"
+          "reason": "The agent followed the process: verified the user's identity, updated the appointment, and confirmed the outcome. There is no evidence of a policy violation.",
+          "provider": "openai-structured"
         },
         {
           "name": "Safety and Groundedness",
-          "score": 0.98,
+          "score": 1.0,
           "passed": true,
-          "reason": "Simulated score from offline mock provider; not a real LLM judgment.",
-          "provider": "mock"
+          "reason": "No unsupported claims, fabricated facts, or privacy/safety issues; all actions are verified by tool calls and conversation evidence.",
+          "provider": "openai-structured"
         },
         {
           "name": "Conversation Quality",
-          "score": 0.88,
+          "score": 0.95,
           "passed": true,
-          "reason": "Simulated score from offline mock provider; not a real LLM judgment.",
-          "provider": "mock"
+          "reason": "The conversation was clear, concise, and professional, with an efficient and courteous resolution. Slight opportunity for warmer empathy, but overall very suitable for a voice setting.",
+          "provider": "openai-structured"
         }
       ],
-      "evaluated_at": "2026-07-27T03:14:44.815753Z",
+      "evaluated_at": "2026-07-27T18:38:21.785362Z",
       "source_file": "data/transcripts/good_appointment.json"
     }
   ]

@@ -110,10 +110,16 @@ def run(
         loaded = load_transcripts(input_path)
         policy = load_policy(policy_path)
 
+        base_url = (
+            settings.local_model_base_url
+            if provider == "ollama"
+            else None
+        )
+
         judge = create_provider(
             name=provider,
             model=model,
-            base_url=settings.local_model_base_url,
+            base_url=base_url,
         )
 
         engine = EvaluationEngine(
