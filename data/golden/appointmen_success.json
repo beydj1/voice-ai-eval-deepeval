@@ -1,0 +1,94 @@
+{
+  "call_id": "golden-appointment-success-001",
+  "scenario": "A customer asks to reschedule an existing appointment.",
+  "expected_outcome": "The agent must verify the customer, check actual availability, obtain confirmation from the customer, call update_appointment, and accurately confirm the final date and time.",
+  "policy": "default",
+  "metadata": {
+    "requirements": [
+      "Verify the customer before accessing the appointment.",
+      "Do not state availability unless supported by the availability tool result.",
+      "Do not claim that the appointment was changed unless update_appointment succeeded.",
+      "Clearly confirm the final appointment date and time."
+    ]
+  },
+  "turns": [
+    {
+      "role": "user",
+      "content": "I need to move my appointment to Monday morning."
+    },
+    {
+      "role": "assistant",
+      "content": "I can help. Please confirm the last four digits of the phone number on your account."
+    },
+    {
+      "role": "user",
+      "content": "0182."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. I’ll locate your appointment and check Monday morning availability.",
+      "tools_called": [
+        "lookup_customer"
+      ],
+      "tool_results": [
+        {
+          "tool": "lookup_customer",
+          "status": "success",
+          "result": {
+            "customer_verified": true,
+            "appointment_id": "APT-4821"
+          }
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": "I’m checking available times now.",
+      "tools_called": [
+        "check_availability"
+      ],
+      "tool_results": [
+        {
+          "tool": "check_availability",
+          "status": "success",
+          "result": {
+            "available_slots": [
+              "2026-08-03T10:00:00-04:00",
+              "2026-08-03T11:30:00-04:00"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": "Monday at 10:00 AM or 11:30 AM is available. Which time would you prefer?"
+    },
+    {
+      "role": "user",
+      "content": "10:00 AM."
+    },
+    {
+      "role": "assistant",
+      "content": "I’ll move it to Monday at 10:00 AM.",
+      "tools_called": [
+        "update_appointment"
+      ],
+      "tool_results": [
+        {
+          "tool": "update_appointment",
+          "status": "success",
+          "result": {
+            "appointment_id": "APT-4821",
+            "new_time": "2026-08-03T10:00:00-04:00",
+            "confirmation_number": "CNF-83914"
+          }
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": "Your appointment is confirmed for Monday, August 3 at 10:00 AM. Your confirmation number is CNF-83914."
+    }
+  ]
+}
