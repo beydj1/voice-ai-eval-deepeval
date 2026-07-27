@@ -1,0 +1,51 @@
+{
+  "call_id": "golden-appointment-success-001",
+  "scenario": "Customer reschedules an appointment",
+  "expected_outcome": "The assistant verifies the customer, checks availability, updates the appointment, and clearly confirms the new date and time.",
+  "policy": "default",
+  "metadata": {
+    "mock_scores": {
+      "task_completion": 0.96,
+      "business_compliance": 0.95,
+      "safety_and_groundedness": 0.98,
+      "conversation_quality": 0.92
+    }
+  },
+  "turns": [
+    {
+      "role": "user",
+      "content": "I need to move my appointment to next Monday morning."
+    },
+    {
+      "role": "assistant",
+      "content": "I can help with that. Please confirm the last four digits of the phone number on the account."
+    },
+    {
+      "role": "user",
+      "content": "0182."
+    },
+    {
+      "role": "assistant",
+      "content": "Thank you. I found your account and will check Monday morning availability.",
+      "tools_called": [
+        "lookup_customer",
+        "check_availability"
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": "There is an opening next Monday at 10:00 AM. Would you like me to move your appointment to that time?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, please."
+    },
+    {
+      "role": "assistant",
+      "content": "Your appointment has been updated and confirmed for next Monday at 10:00 AM.",
+      "tools_called": [
+        "update_appointment"
+      ]
+    }
+  ]
+}

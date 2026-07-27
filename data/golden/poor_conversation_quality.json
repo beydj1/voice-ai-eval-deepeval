@@ -1,0 +1,43 @@
+{
+  "call_id": "golden-poor-conversation-quality-001",
+  "scenario": "Customer reschedules an appointment successfully, but the assistant is repetitive and unnatural",
+  "expected_outcome": "The assistant should complete the update accurately while communicating clearly and naturally for a voice conversation.",
+  "policy": "default",
+  "metadata": {
+    "mock_scores": {
+      "task_completion": 0.92,
+      "business_compliance": 0.90,
+      "safety_and_groundedness": 0.95,
+      "conversation_quality": 0.42
+    }
+  },
+  "turns": [
+    {
+      "role": "user",
+      "content": "Can you move my appointment to Friday afternoon?"
+    },
+    {
+      "role": "assistant",
+      "content": "I can move your appointment. I will now move your appointment. First, I will check your appointment. Your appointment is an appointment."
+    },
+    {
+      "role": "assistant",
+      "content": "Friday at 3:00 PM is available. Friday at 3:00 PM is available. Friday at 3:00 PM is available.",
+      "tools_called": [
+        "lookup_customer",
+        "check_availability"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "Yes, that time works."
+    },
+    {
+      "role": "assistant",
+      "content": "Your appointment is updated and confirmed for Friday at 3:00 PM. It is confirmed. The appointment is confirmed. Friday at 3:00 PM is confirmed.",
+      "tools_called": [
+        "update_appointment"
+      ]
+    }
+  ]
+}

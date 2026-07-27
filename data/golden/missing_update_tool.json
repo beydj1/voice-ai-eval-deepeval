@@ -1,0 +1,36 @@
+{
+  "call_id": "golden-missing-update-tool-001",
+  "scenario": "Customer confirms an available appointment time",
+  "expected_outcome": "The assistant must call update_appointment before confirming that the change was completed.",
+  "policy": "default",
+  "metadata": {
+    "mock_scores": {
+      "task_completion": 0.45,
+      "business_compliance": 0.25,
+      "safety_and_groundedness": 0.40,
+      "conversation_quality": 0.90
+    }
+  },
+  "turns": [
+    {
+      "role": "user",
+      "content": "Please move my appointment to Tuesday at 2:00 PM."
+    },
+    {
+      "role": "assistant",
+      "content": "I found an available appointment for Tuesday at 2:00 PM.",
+      "tools_called": [
+        "lookup_customer",
+        "check_availability"
+      ]
+    },
+    {
+      "role": "user",
+      "content": "That works."
+    },
+    {
+      "role": "assistant",
+      "content": "Great. Your appointment is confirmed for Tuesday at 2:00 PM."
+    }
+  ]
+}
