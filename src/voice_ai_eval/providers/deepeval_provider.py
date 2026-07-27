@@ -82,6 +82,12 @@ class DeepEvalJudgeProvider(JudgeProvider):
                 "DeepEval is not installed. Run: pip install -e '.[dev]'"
             ) from exc
 
+        print("\n" + "=" * 80)
+        print(f"Evaluating transcript: {transcript.scenario}")
+        print(f"Expected outcome: {transcript.expected_outcome}")
+        print(f"Turns: {len(transcript.turns)}")
+        print("=" * 80)
+
         turns = [
             Turn(
                 role=turn.role.value,
@@ -104,6 +110,8 @@ class DeepEvalJudgeProvider(JudgeProvider):
         results: list[MetricResult] = []
 
         for name, criteria in policy.llm_criteria.items():
+            print(f"\n>>> Starting metric: {name}")
+
             contextual_criteria = (
                 f"{criteria}\n\n"
                 f"Scenario: {transcript.scenario}\n"
@@ -121,9 +129,19 @@ class DeepEvalJudgeProvider(JudgeProvider):
                 verbose_mode=False,
             )
 
+            print(f"    ✓ Metric object created: {name}")
+            print(f"    → Calling metric.measure()...")
+
             metric.measure(case)
 
+            print(f"    ✓ metric.measure() returned")
+
             score = float(metric.score or 0.0)
+
+            print(
+                f"    ✓ Score={score:.3f}, "
+                f"Passed={metric.is_successful()}"
+            )
 
             results.append(
                 MetricResult(
@@ -136,5 +154,9 @@ class DeepEvalJudgeProvider(JudgeProvider):
                     provider=self.name,
                 )
             )
+
+            print(f"<<< Finished metric: {name}")
+
+        print("Finished transcript.")
 
         return results
