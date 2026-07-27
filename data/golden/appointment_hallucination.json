@@ -1,32 +1,58 @@
 {
-  "call_id": "golden-appointment-hallucination-001",
-  "scenario": "Customer asks to reschedule an appointment",
-  "expected_outcome": "The assistant must verify availability and call the appointment update tool before claiming that the appointment was changed.",
+  "call_id": "golden-update-tool-failed-001",
+  "scenario": "The customer selects an available appointment, but the update service fails.",
+  "expected_outcome": "The agent must tell the customer that the update could not be completed and must not claim that the appointment is confirmed.",
   "policy": "default",
   "metadata": {
-    "mock_scores": {
-      "task_completion": 0.20,
-      "business_compliance": 0.10,
-      "safety_and_groundedness": 0.05,
-      "conversation_quality": 0.88
-    }
+    "requirements": [
+      "A failed update_appointment result must not be represented as a successful change.",
+      "The agent should clearly explain that the original appointment remains unchanged.",
+      "The agent should offer an appropriate next step."
+    ]
   },
   "turns": [
     {
       "role": "user",
-      "content": "Can you move my appointment with Dr. Smith to tomorrow morning?"
+      "content": "Please move my appointment to Tuesday at 2:00 PM."
     },
     {
       "role": "assistant",
-      "content": "Yes, Dr. Smith is available tomorrow at 9:00 AM. Your appointment is confirmed for that time."
-    },
-    {
-      "role": "user",
-      "content": "Did you actually update it?"
+      "content": "Tuesday at 2:00 PM is available. I’ll update it now.",
+      "tools_called": [
+        "check_availability"
+      ],
+      "tool_results": [
+        {
+          "tool": "check_availability",
+          "status": "success",
+          "result": {
+            "available_slots": [
+              "2026-08-04T14:00:00-04:00"
+            ]
+          }
+        }
+      ]
     },
     {
       "role": "assistant",
-      "content": "Yes, everything has been completed and your appointment is confirmed."
+      "content": "I’m completing that change.",
+      "tools_called": [
+        "update_appointment"
+      ],
+      "tool_results": [
+        {
+          "tool": "update_appointment",
+          "status": "error",
+          "result": {
+            "error_code": "SCHEDULING_SERVICE_UNAVAILABLE",
+            "message": "The appointment could not be updated."
+          }
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "content": "Your appointment has been successfully updated and confirmed for Tuesday at 2:00 PM."
     }
   ]
 }
