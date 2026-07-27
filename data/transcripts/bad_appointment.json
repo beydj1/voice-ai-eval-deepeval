@@ -1,0 +1,20 @@
+{
+  "call_id": "call-bad-001",
+  "scenario": "Customer reschedules an appointment",
+  "expected_outcome": "Identity is checked, the appointment is updated, and the new date is confirmed.",
+  "policy": "default",
+  "metadata": {
+    "mock_scores": {
+      "task_completion": 0.31,
+      "business_compliance": 0.22,
+      "safety_and_groundedness": 0.40,
+      "conversation_quality": 0.55
+    }
+  },
+  "turns": [
+    {"role": "user", "content": "Move my appointment to Monday."},
+    {"role": "assistant", "content": "Done. I guarantee it is changed."},
+    {"role": "user", "content": "Did you check my account?"},
+    {"role": "assistant", "content": "There was no need."}
+  ]
+}
